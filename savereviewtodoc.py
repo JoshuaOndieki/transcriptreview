@@ -11,7 +11,7 @@ def savereview(file_id, transcript):
 
     document.add_paragraph('Transcript review')
     document.add_paragraph().add_run('Yellow is for extras not discussed in the basic guidelines. Understand their usage if you are interested in QA work. Your metrics does not include them.').italic = True
-    document.add_paragraph('Please note as at now I have not included speaker corrections. I have decided to create reviews so that you can note the reoccuring errors and hopefully I will get a reviewer or two.')
+    document.add_paragraph('Please note as at now I have not included speaker corrections. I have decided to create reviews so that you can note the reoccurring errors and hopefully I will get a reviewer or two.')
 
     removal_p = document.add_paragraph()
     removal_p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
