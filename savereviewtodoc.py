@@ -10,8 +10,8 @@ def savereview(file_id, transcript):
     document.add_heading('REVIEW: ' + file_id, 0)
 
     document.add_paragraph('Transcript review')
-    document.add_paragraph().add_run('Yellow is for extras not discussed in the basic guidelines.').italic = True
-    document.add_paragraph('Please note as at now speaker corrections are not included. Soon.')
+    document.add_paragraph().add_run('Yellow is for extras not discussed in the basic guidelines. Understand their usage if you are interested in QA work. Your metrics does not include them.').italic = True
+    document.add_paragraph('Please note as at now I have not included speaker corrections. I have decided to create reviews so that you can note the reoccuring errors and hopefully I will get a reviewer or two.')
 
     removal_p = document.add_paragraph()
     removal_p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
@@ -30,10 +30,14 @@ def savereview(file_id, transcript):
         if d[0] == "?":
             continue
 
-        if ":" in d:
+        if d[-1] == ":":
            p = document.add_paragraph()
            d = d[1:]
-           p.add_run(d +" ").bold = True
+           p.add_run(d + " ").bold = True
+
+        elif ":" in d and d[-1] != ":":
+            d = d[1:]
+            p.add_run(d + " ").bold = True
         else:
             if d[0] == "-":
                 d = d[1:]
@@ -69,4 +73,4 @@ def savereview(file_id, transcript):
     rating_font = rating_p.add_run("QUALITY:   " + str(100 - round(((addition / word_count * 100) + (removal / word_count * 100)) / 2.2, 2)) + "%").font
     rating_font.bold = True
 
-    document.save("files/docx" + file_id + "-review.docx")
+    document.save("files/docx/" + file_id + "-review.docx")
