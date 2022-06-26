@@ -10,7 +10,7 @@ def savereview(file_id, transcript):
     document.add_heading('REVIEW: ' + file_id, 0)
 
     document.add_paragraph('Transcript review')
-    document.add_paragraph().add_run('Yellow is for extras not discussed in the basic guidelines. Understand their usage if you are interested in QA work. Your metrics does not include them.').italic = True
+    document.add_paragraph().add_run('Yellow is for extras not discussed in the basic guidelines. Your metrics do not include them.').italic = True
     document.add_paragraph('Please note as at now I have not included speaker corrections. I have decided to create reviews so that you can note the reoccurring errors and hopefully I will get a reviewer or two.')
 
     removal_p = document.add_paragraph()
@@ -32,16 +32,14 @@ def savereview(file_id, transcript):
 
         if d[-1] == ":":
            p = document.add_paragraph()
-           d = d[1:]
-           p.add_run(d + " ").bold = True
+           p.add_run(d[2:] + " ").bold = True
 
         elif ":" in d and d[-1] != ":":
-            d = d[1:]
-            p.add_run(d + " ").bold = True
+            p.add_run(d[2:] + " ").bold = True
         else:
             if d[0] == "-":
-                d = d[1:]
-                font = p.add_run(d).font
+
+                font = p.add_run(d[2:] + " ").font
                 if "<" and ">" in d:
                     font.highlight_color = WD_COLOR_INDEX.YELLOW
                 else:
@@ -49,9 +47,9 @@ def savereview(file_id, transcript):
                     removal += 1
                     font.highlight_color = WD_COLOR_INDEX.RED
             elif d[0] == "+":
-                d = d[1:]
-                font = p.add_run(d).font
-                if "<" and ">" in d:
+
+                font = p.add_run(d[2:] + " ").font
+                if "<" and ">" in d and "UNKNOWN" not in d:
                     font.highlight_color = WD_COLOR_INDEX.YELLOW
                 else:
                     word_count += 1
@@ -59,7 +57,7 @@ def savereview(file_id, transcript):
                     font.highlight_color = WD_COLOR_INDEX.BRIGHT_GREEN
             else:
                 word_count += 1
-                p.add_run(d)
+                p.add_run(d[2:] + " ")
 
     removal_font = removal_p.add_run(" REMOVAL: " + str(removal)).font
     removal_font.bold = True

@@ -18,8 +18,8 @@ initial_transcript = "".join(initial_transcript).split(" ")
 final_transcript = "".join(final_transcript).split(" ")
 
 
-for d in difflib.ndiff(initial_transcript, final_transcript):
-    print(d)
+# for d in difflib.ndiff(initial_transcript, final_transcript):
+#     print(d)
 
 
 # Save review as DOC
